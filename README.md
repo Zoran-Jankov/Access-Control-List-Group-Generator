@@ -8,6 +8,8 @@
 
 Creates file permissions Read Only and Read-Write AD groups for a shared folder, and grants them appropriate access to the shared folder.
 
+![Application Window](https://github.com/Zoran-Jankov/Create-New-Permission-Groups/blob/main/Application%20Window.png?raw=true)
+
 ## Credits
 
 ### Author
