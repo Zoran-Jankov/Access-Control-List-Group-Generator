@@ -12,6 +12,12 @@ Creates file permissions Read Only and Read-Write AD groups for a shared folder,
 
 ![Application Window](https://github.com/Zoran-Jankov/Create-New-Permission-Groups/blob/main/Application%20Window.png?raw=true)
 
+## Requirements
+
+[Windows PowerShell Version 5.1 or higher](https://docs.microsoft.com/en-us/skypeforbusiness/set-up-your-computer-for-windows-powershell/download-and-install-windows-powershell-5-1)
+
+[Active Directory module for Windows PowerShell](https://docs.microsoft.com/en-us/powershell/module/addsadministration/?view=win10-ps)
+
 ## Licence
 
 [![License: GPL v3](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0)
