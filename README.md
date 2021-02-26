@@ -12,6 +12,10 @@ Creates file permissions Read Only and Read-Write AD groups for a shared folder,
 
 ![Application Window](https://github.com/Zoran-Jankov/Create-New-Permission-Groups/blob/main/Application%20Window.png?raw=true)
 
+## Licence
+
+[![License: GPL v3](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0)
+
 ## Credits
 
 ### Author
