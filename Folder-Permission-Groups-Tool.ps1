@@ -15,7 +15,7 @@ Author:         Zoran Jankov
 
 #---------------------------------------------------------[Initialisations]--------------------------------------------------------
 
-$FolderPermissionGroupsOU = "OU=File Server Permission Groups,"
+$FolderPermissionGroupsOU = "OU=File Server Permission Groups"
 
 $Credential = Get-Credential
 $RootOU = $FolderPermissionGroupsOU + "," + (Get-ADDomain).DistinguishedName
