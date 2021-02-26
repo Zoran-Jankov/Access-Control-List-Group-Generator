@@ -1,4 +1,4 @@
-# Create-New-Permission-Groups
+# Folder-Permission-Groups-Tool
 
 [![made-with-powershell](https://img.shields.io/badge/PowerShell-1f425f?logo=Powershell)](https://microsoft.com/PowerShell)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -8,7 +8,7 @@
 
 ## Description
 
-Creates file permissions Read Only and Read-Write AD groups for a shared folder, and grants them appropriate access to the shared folder.
+Creates file permissions Read Only and Read-Write AD groups for a shared folder, and grants them appropriate access to the share folder. It names AD groups by appending folder name to the prefix `PG-RO-` for AD group that has Read Only access and `PG-RW-` for the AD group that has Read-Write access. It generates log for events and error.
 
 ![Application Window](https://github.com/Zoran-Jankov/Create-New-Permission-Groups/blob/main/Application%20Window.png?raw=true)
 

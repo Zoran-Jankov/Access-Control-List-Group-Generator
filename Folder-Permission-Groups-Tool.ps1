@@ -1,6 +1,24 @@
+<#
+.SYNOPSIS
+Creates file permissions Read Only and Read-Write AD groups for a shared folder, and grants them appropriate access to the shared
+folder.
+
+.DESCRIPTION
+Creates file permissions Read Only and Read-Write AD groups for a shared folder, and grants them appropriate access to the share
+folder. It names AD groups by appending folder name to the prefix `PG-RO-` for AD group that has Read Only access and `PG-RW-` for
+the AD group that has Read-Write access. It generates log for events and error.
+
+.NOTES
+Version:        1.1
+Author:         Zoran Jankov
+#>
+
 #---------------------------------------------------------[Initialisations]--------------------------------------------------------
+
+$FolderPermissionGroupsOU = "OU=File Server Permission Groups,"
+
 $Credential = Get-Credential
-$RootOU = "OU=File Server Permission Groups," + (Get-ADDomain).DistinguishedName
+$RootOU = $FolderPermissionGroupsOU + "," + (Get-ADDomain).DistinguishedName
 $OrganisationalUnits = [ordered]@{}
 Get-ADOrganizationalUnit -SearchBase $RootOU -SearchScope Subtree -Filter {
     DistinguishedName -ne $RootOU
@@ -8,7 +26,11 @@ Get-ADOrganizationalUnit -SearchBase $RootOU -SearchScope Subtree -Filter {
     $OrganisationalUnits.Add($_.Name, $_.DistinguishedName)
     }
 
+$LogTitle = "********************************************************  Folder Permission Groups Tool Log  *********************************************************"
+$LogSeparator = "******************************************************************************************************************************************************"
+    
 #-----------------------------------------------------------[Functions]------------------------------------------------------------
+
 <#
 .SYNOPSIS
 Writes a log entry to console, log file and report file.
@@ -273,11 +295,6 @@ function New-FilePermissionGroups {
 
 #-----------------------------------------------------------[Execution]------------------------------------------------------------
 
-<# This form was created using POSHGUI.com  a free online gui designer for PowerShell
-.NAME
-    Create-New-Permission-Groups
-#>
-
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
@@ -330,9 +347,6 @@ $OUPathComboBox.width            = 650
 $OUPathComboBox.height           = 5
 $OUPathComboBox.location         = New-Object System.Drawing.Point(120,75)
 $OUPathComboBox.Font             = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
-foreach ($Item in $OrganisationalUnits.Keys.GetEnumerator()) {
-    $OUPathComboBox.Items.Add($Item)
-}
 
 $SelectFolderButton              = New-Object system.Windows.Forms.Button
 $SelectFolderButton.text         = "Select Folder"
@@ -341,18 +355,32 @@ $SelectFolderButton.height       = 30
 $SelectFolderButton.location     = New-Object System.Drawing.Point(672,25)
 $SelectFolderButton.Font         = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 
-$MainForm.controls.AddRange(@($FolderPathLabel,$OUPathLabel,$FolderPathTextBox,$CreateGroupsButton,$ResultTextBox,$OUPathComboBox,$SelectFolderButton))
+$MainForm.controls.AddRange(@(
+    $FolderPathLabel,
+    $OUPathLabel,
+    $FolderPathTextBox,
+    $CreateGroupsButton,
+    $ResultTextBox,
+    $OUPathComboBox,
+    $SelectFolderButton
+))
 
 $SelectFolderButton.Add_Click({
     $FolderPathTextBox.text = Get-Folder -InitialDirectory "D:\"
- })
+})
 
 $CreateGroupsButton.Add_Click({
+    Write-Log -Message $LogTitle -NoTimestamp
+    Write-Log -Message $LogSeparator -NoTimestamp
     $OUPath = $OrganisationalUnits.Get_Item($OUPathComboBox.Text)
     New-FilePermissionGroups -OUPath $OUPath -FolderPath $FolderPathTextBox.text -Credential $Credential |
     ForEach-Object {
         $ResultTextBox.Text = $_
     }
 })
+
+foreach ($Item in $OrganisationalUnits.Keys.GetEnumerator()) {
+    $OUPathComboBox.Items.Add($Item)
+}
 
 [void]$MainForm.ShowDialog()
