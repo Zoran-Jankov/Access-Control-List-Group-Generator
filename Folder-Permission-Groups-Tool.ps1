@@ -302,8 +302,8 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $MainForm                        = New-Object system.Windows.Forms.Form
-$MainForm.ClientSize             = New-Object System.Drawing.Point(800,359)
-$MainForm.text                   = "Create New Permission Groups"
+$MainForm.ClientSize             = New-Object System.Drawing.Point(800,560)
+$MainForm.text                   = "Folder Permission Groups Tool"
 $MainForm.TopMost                = $false
 $MainForm.FormBorderStyle        = 'Fixed3D'
 $MainForm.MaximizeBox            = $false
@@ -342,13 +342,13 @@ $ResultTextBox                   = New-Object system.Windows.Forms.TextBox
 $ResultTextBox.multiline         = $true
 $ResultTextBox.text              = "Waiting for operation execution"
 $ResultTextBox.width             = 745
-$ResultTextBox.height            = 160
+$ResultTextBox.height            = 360
 $ResultTextBox.ScrollBars        = "Vertical"
 $ResultTextBox.location          = New-Object System.Drawing.Point(25,120)
 $ResultTextBox.Font              = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
 $ResultTextBox.ReadOnly          = $true
-$ResultTextBox.ForeColor         = [System.Drawing.ColorTranslator]::FromHtml("#7ed321")
-$ResultTextBox.BackColor         = [System.Drawing.ColorTranslator]::FromHtml("#000000")
+$ResultTextBox.ForeColor         = [System.Drawing.ColorTranslator]::FromHtml("#00FF41")
+$ResultTextBox.BackColor         = [System.Drawing.ColorTranslator]::FromHtml("#0D0208")
 
 $OUPathComboBox                  = New-Object system.Windows.Forms.ComboBox
 $OUPathComboBox.width            = 650
