@@ -9,7 +9,7 @@ folder. It names AD groups by appending folder name to the prefix `PG-RO-` for A
 the AD group that has Read-Write access. It generates log for events and error.
 
 .NOTES
-Version:        1.1
+Version:        1.2
 Author:         Zoran Jankov
 #>
 
@@ -19,10 +19,13 @@ $FolderPermissionGroupsOU = "OU=File Server Permission Groups"
 
 $Credential = Get-Credential
 $RootOU = $FolderPermissionGroupsOU + "," + (Get-ADDomain).DistinguishedName
+
+if (-not ([adsi]::Exists("LDAP://$RootOU"))) {
+    New-ADOrganizationalUnit -Name $FolderPermissionGroupsOU -Path (Get-ADDomain).DistinguishedName
+}
+
 $OrganisationalUnits = [ordered]@{}
-Get-ADOrganizationalUnit -SearchBase $RootOU -SearchScope Subtree -Filter {
-    DistinguishedName -ne $RootOU
-} | ForEach-Object {
+Get-ADOrganizationalUnit -SearchBase $RootOU -SearchScope Subtree -Filter * | ForEach-Object {
     $OrganisationalUnits.Add($_.Name, $_.DistinguishedName)
     }
 
@@ -285,7 +288,7 @@ function New-FilePermissionGroups {
                 $Result += "$Message`r`n"
                 continue
             }
-            $Message = "Successfully granted " + $Group.Access + " access to $Name ADGroup to $FolderPath shared folder"
+            $Message = "Successfully granted " + $Group.Access + " access to $Name ADGroup to ""$FolderPath"" shared folder"
             Write-Log -Message $Message
             $Result += "$Message`r`n"
         }
@@ -302,6 +305,8 @@ $MainForm                        = New-Object system.Windows.Forms.Form
 $MainForm.ClientSize             = New-Object System.Drawing.Point(800,359)
 $MainForm.text                   = "Create New Permission Groups"
 $MainForm.TopMost                = $false
+$MainForm.FormBorderStyle        = 'Fixed3D'
+$MainForm.MaximizeBox            = $false
 
 $FolderPathLabel                 = New-Object system.Windows.Forms.Label
 $FolderPathLabel.text            = "Folder Path"
@@ -338,9 +343,12 @@ $ResultTextBox.multiline         = $true
 $ResultTextBox.text              = "Waiting for operation execution"
 $ResultTextBox.width             = 745
 $ResultTextBox.height            = 160
-$ResultTextBox.enabled           = $true
+$ResultTextBox.ScrollBars        = "Vertical"
 $ResultTextBox.location          = New-Object System.Drawing.Point(25,120)
-$ResultTextBox.Font              = New-Object System.Drawing.Font('Microsoft Sans Serif',10,[System.Drawing.FontStyle]([System.Drawing.FontStyle]::Bold))
+$ResultTextBox.Font              = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+$ResultTextBox.ReadOnly          = $true
+$ResultTextBox.ForeColor         = [System.Drawing.ColorTranslator]::FromHtml("#7ed321")
+$ResultTextBox.BackColor         = [System.Drawing.ColorTranslator]::FromHtml("#000000")
 
 $OUPathComboBox                  = New-Object system.Windows.Forms.ComboBox
 $OUPathComboBox.width            = 650
