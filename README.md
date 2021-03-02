@@ -20,6 +20,8 @@ Creates file permissions Read Only and Read-Write AD groups for a shared folder,
 
 ## Licence
 
+[***GNU General Public License Version 3***](https://www.gnu.org/licenses/gpl-3.0)
+
 [![License: GPL v3](https://www.gnu.org/graphics/gplv3-127x51.png)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Credits
