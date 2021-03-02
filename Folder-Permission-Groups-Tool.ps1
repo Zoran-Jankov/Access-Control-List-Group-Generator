@@ -369,6 +369,10 @@ $SelectFolderButton.Add_Click({
     $FolderPathTextBox.text = Get-Folder -InitialDirectory "D:\"
 })
 
+$FolderPathTextBox.Add_Click({
+    $FolderPathTextBox.text = Get-Folder -InitialDirectory "D:\"
+})
+
 $CreateGroupsButton.Add_Click({
     Write-Log -Message $LogTitle -NoTimestamp
     Write-Log -Message $LogSeparator -NoTimestamp
@@ -377,6 +381,7 @@ $CreateGroupsButton.Add_Click({
     ForEach-Object {
         $ResultTextBox.Text = $_
     }
+    Write-Log -Message $LogSeparator -NoTimestamp
 })
 
 foreach ($Item in $OrganisationalUnits.Keys.GetEnumerator()) {
