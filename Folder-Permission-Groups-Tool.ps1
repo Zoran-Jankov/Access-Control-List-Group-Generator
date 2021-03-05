@@ -335,12 +335,12 @@ $CreateGroupsButton              = New-Object system.Windows.Forms.Button
 $CreateGroupsButton.text         = "Create Groups"
 $CreateGroupsButton.width        = 140
 $CreateGroupsButton.height       = 30
-$CreateGroupsButton.location     = New-Object System.Drawing.Point(330,305)
+$CreateGroupsButton.location     = New-Object System.Drawing.Point(330,505)
 $CreateGroupsButton.Font         = New-Object System.Drawing.Font('Microsoft Sans Serif',10,[System.Drawing.FontStyle]([System.Drawing.FontStyle]::Bold))
 
 $ResultTextBox                   = New-Object system.Windows.Forms.TextBox
 $ResultTextBox.multiline         = $true
-$ResultTextBox.text              = "Waiting for operation execution"
+$ResultTextBox.text              = "Waiting for operation execution..."
 $ResultTextBox.width             = 745
 $ResultTextBox.height            = 360
 $ResultTextBox.ScrollBars        = "Vertical"
