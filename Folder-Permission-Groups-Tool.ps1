@@ -304,7 +304,7 @@ Add-Type -AssemblyName System.Windows.Forms
 $MainForm                        = New-Object system.Windows.Forms.Form
 $MainForm.ClientSize             = New-Object System.Drawing.Point(800,560)
 $MainForm.text                   = "Folder Permission Groups Tool"
-$MainForm.TopMost                = $false
+$MainForm.TopMost                = $true
 $MainForm.FormBorderStyle        = 'Fixed3D'
 $MainForm.MaximizeBox            = $false
 
