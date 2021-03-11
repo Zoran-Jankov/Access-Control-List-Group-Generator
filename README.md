@@ -4,7 +4,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/004f7c8dec4b4321a382cf83990b21d0)](https://www.codacy.com/gh/Zoran-Jankov/Create-New-Permission-Groups/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Zoran-Jankov/Create-New-Permission-Groups&amp;utm_campaign=Badge_Grade)
 [![CodeFactor](https://www.codefactor.io/repository/github/zoran-jankov/folder-permission-groups-tool/badge)](https://www.codefactor.io/repository/github/zoran-jankov/folder-permission-groups-tool)
-[![Github All Releases](https://img.shields.io/github/downloads/Zoran-Jankov/Create-New-Permission-Groups/total.svg)]()
+[![Github All Releases](https://img.shields.io/github/downloads/Zoran-Jankov/Folder-Permission-Groups-Tool/total.svg)]()
 
 ## Description
 
