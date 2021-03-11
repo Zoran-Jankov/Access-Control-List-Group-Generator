@@ -231,14 +231,14 @@ function New-FilePermissionGroups {
         $Result = ""
 
         if (-not (Test-Path -Path $FolderPath)) {
-            $Message = "ERROR - $FolderPath folder does not exists"
+            $Message = "ERROR - '$FolderPath' folder does not exists"
             Write-Log -Message $Message
             $Result += "$Message`r`n"
             Write-Output -InputObject $Result
             break
         }
         if (-not ([adsi]::Exists("LDAP://$OUPath"))) {
-            $Message = "ERROR - $OUPath organizational unit does not exists"
+            $Message = "ERROR - '$OUPath' organizational unit does not exists"
             Write-Log -Message $Message
             $Result += "$Message`r`n"
             Write-Output -InputObject $Result
@@ -267,13 +267,13 @@ function New-FilePermissionGroups {
                             -Credential $Credential
             }
             catch {
-                $Message = "Failed to create ""$Name"" AD group `r`n" + $_.Exception
+                $Message = "Failed to create '$Name' AD group `r`n" + $_.Exception
                 Write-Log -Message $Message
                 $Result += "$Message`r`n"
                 Write-Output -InputObject $Result
                 break
             }
-            $Message = "Successfully created ""$Name"" AD group"
+            $Message = "Successfully created '$Name' AD group"
             Write-Log -Message $Message
             $Result += "$Message`r`n"
             $ACL = Get-ACL -Path $FolderPath
@@ -283,12 +283,12 @@ function New-FilePermissionGroups {
                 $ACL | Set-Acl -Path $FolderPath
             }
             catch {
-                $Message = "Failed to grant """ + $Group.Access + """ access to ""$Name"" ADGroup to ""$FolderPath"" `r`n" + $_.Exception
+                $Message = "Failed to grant '" + $Group.Access + "' access to '$Name' ADGroup to '$FolderPath' `r`n" + $_.Exception
                 Write-Log -Message $Message
                 $Result += "$Message`r`n"
                 continue
             }
-            $Message = "Successfully granted """ + $Group.Access + """ access to ""$Name"" ADGroup to ""$FolderPath"" shared folder"
+            $Message = "Successfully granted '" + $Group.Access + "' access to '$Name' ADGroup to '$FolderPath' shared folder"
             Write-Log -Message $Message
             $Result += "$Message`r`n"
         }
