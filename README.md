@@ -16,7 +16,7 @@ Creates file permissions Read Only and Read-Write AD groups for a shared folder,
 
 [Windows PowerShell Version 5.1 or higher](https://docs.microsoft.com/en-us/skypeforbusiness/set-up-your-computer-for-windows-powershell/download-and-install-windows-powershell-5-1)
 
-[Active Directory module for Windows PowerShell](https://docs.microsoft.com/en-us/powershell/module/addsadministration/?view=win10-ps)
+[Active Directory module for Windows PowerShell](https://docs.microsoft.com/en-us/powershell/module/addsadministration/?view=win10-ps) - [Download](https://www.microsoft.com/en-us/download/details.aspx?id=45520)
 
 ## Licence
 
