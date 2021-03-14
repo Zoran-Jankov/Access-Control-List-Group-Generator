@@ -17,7 +17,6 @@ Author:         Zoran Jankov
 
 $FolderPermissionGroupsOU = "OU=File Server Permission Groups"
 
-$Credential = Get-Credential
 $RootOU = $FolderPermissionGroupsOU + "," + (Get-ADDomain).DistinguishedName
 
 if (-not ([adsi]::Exists("LDAP://$RootOU"))) {
@@ -189,9 +188,6 @@ Organization unit path for the permission groups
 .PARAMETER FolderPath
 Full path of the shared folder
 
-.PARAMETER Credential
-Domanin credential for creation of an Active Directory group
-
 .EXAMPLE
 New-FilePermissionGroups -OUPath "OU=File Server Permission Groups,DC=company,DC=com" -FolderPath "\\SERVER\Shared_Folder"
 
@@ -216,15 +212,7 @@ function New-FilePermissionGroups {
                    ValueFromPipelineByPropertyName = $true,
                    HelpMessage = "Full path of the shared folder")]
         [string]
-        $FolderPath,
-
-        [Parameter(Mandatory = $true,
-                   Position = 2,
-                   ValueFromPipeline = $true,
-                   ValueFromPipelineByPropertyName = $true,
-                   HelpMessage = "Credential for creation of an Active Directory group")]
-        [System.Management.Automation.PSCredential]
-        $Credential
+        $FolderPath
     )
 
     process {
@@ -263,8 +251,7 @@ function New-FilePermissionGroups {
                             -Path $OUPath `
 							-GroupCategory Security `
 							-GroupScope Global `
-                            -Description $FolderPath `
-                            -Credential $Credential
+                            -Description $FolderPath
             }
             catch {
                 $Message = "Failed to create '$Name' AD group `r`n" + $_.Exception
@@ -385,7 +372,7 @@ $CreateGroupsButton.Add_Click({
     Write-Log -Message $LogTitle -NoTimestamp
     Write-Log -Message $LogSeparator -NoTimestamp
     $OUPath = $OrganisationalUnits.Get_Item($OUPathComboBox.Text)
-    New-FilePermissionGroups -OUPath $OUPath -FolderPath $FolderPathTextBox.text -Credential $Credential |
+    New-FilePermissionGroups -OUPath $OUPath -FolderPath $FolderPathTextBox.text - $ |
     ForEach-Object {
         $ResultTextBox.Text = $_
     }
