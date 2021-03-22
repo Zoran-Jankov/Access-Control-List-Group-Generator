@@ -294,6 +294,7 @@ $MainForm.text                   = "Folder Permission Groups Tool"
 $MainForm.TopMost                = $true
 $MainForm.FormBorderStyle        = 'Fixed3D'
 $MainForm.MaximizeBox            = $false
+$MainForm.ShowIcon               = $false
 
 $FolderPathLabel                 = New-Object system.Windows.Forms.Label
 $FolderPathLabel.text            = "Folder Path"
@@ -342,6 +343,8 @@ $OUPathComboBox.width            = 650
 $OUPathComboBox.height           = 5
 $OUPathComboBox.location         = New-Object System.Drawing.Point(120,75)
 $OUPathComboBox.Font             = New-Object System.Drawing.Font('Microsoft Sans Serif',10)
+$OUPathComboBox.AutoCompleteMode   = 'SuggestAppend'
+$OUPathComboBox.AutoCompleteSource = 'ListItems'
 
 $SelectFolderButton              = New-Object system.Windows.Forms.Button
 $SelectFolderButton.text         = "Select Folder"
