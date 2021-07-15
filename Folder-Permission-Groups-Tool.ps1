@@ -177,56 +177,33 @@ function New-FilePermissionGroups {
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-$MainForm = New-Object system.Windows.Forms.Form
-$MainForm.ClientSize = New-Object System.Drawing.Point(800, 560)
-$MainForm.Text = "Folder Permission Groups Tool"
-$MainForm.TopMost = $true
+$MainForm = New-Object System.Windows.Forms.Form
+$MainForm.AutoSize =  $true
 $MainForm.FormBorderStyle = 'Fixed3D'
 $MainForm.MaximizeBox = $false
+$MainForm.Padding = 25
 $MainForm.ShowIcon = $false
-$MainForm.ControlBox = $false
+$MainForm.Text = "Folder Permission Groups Tool"
+$MainForm.TopMost = $true
 
 $FolderPathLabel = New-Object system.Windows.Forms.Label
-$FolderPathLabel.Text = "Folder Path"
 $FolderPathLabel.AutoSize = $true
-$FolderPathLabel.Width = 25
-$FolderPathLabel.Height = 10
-$FolderPathLabel.Location = New-Object System.Drawing.Point(25, 35)
 $FolderPathLabel.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10)
-
-$OUPathLabel = New-Object system.Windows.Forms.Label
-$OUPathLabel.Text = "OU Path"
-$OUPathLabel.AutoSize = $true
-$OUPathLabel.Width = 25
-$OUPathLabel.Height = 10
-$OUPathLabel.Location = New-Object System.Drawing.Point(25, 80)
-$OUPathLabel.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10)
+$FolderPathLabel.Location = New-Object System.Drawing.Point(25, 35)
+$FolderPathLabel.Text = "Folder Path"
 
 $FolderPathTextBox = New-Object system.Windows.Forms.TextBox
 $FolderPathTextBox.Multiline = $false
-$FolderPathTextBox.Width = 530
+$FolderPathTextBox.Width = 650
 $FolderPathTextBox.Height = 20
 $FolderPathTextBox.Location = New-Object System.Drawing.Point(120, 30)
 $FolderPathTextBox.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10)
 
-$CreateGroupsButton = New-Object system.Windows.Forms.Button
-$CreateGroupsButton.Text = "Create Groups"
-$CreateGroupsButton.Width = 140
-$CreateGroupsButton.Height = 30
-$CreateGroupsButton.Location = New-Object System.Drawing.Point(330, 505)
-$CreateGroupsButton.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10, [System.Drawing.FontStyle]([System.Drawing.FontStyle]::Bold))
-
-$ResultTextBox = New-Object system.Windows.Forms.TextBox
-$ResultTextBox.Multiline = $true
-$ResultTextBox.Text = "Waiting for operation execution..."
-$ResultTextBox.Width = 745
-$ResultTextBox.Height = 360
-$ResultTextBox.ScrollBars = "Vertical"
-$ResultTextBox.Location = New-Object System.Drawing.Point(25, 120)
-$ResultTextBox.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10)
-$ResultTextBox.ReadOnly = $true
-$ResultTextBox.ForeColor = [System.Drawing.ColorTranslator]::FromHtml("#00FF41")
-$ResultTextBox.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#0D0208")
+$OUPathLabel = New-Object system.Windows.Forms.Label
+$OUPathLabel.AutoSize = $true
+$OUPathLabel.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10)
+$OUPathLabel.Location = New-Object System.Drawing.Point(25, 80)
+$OUPathLabel.Text = "OU Path"
 
 $OUPathComboBox = New-Object system.Windows.Forms.ComboBox
 $OUPathComboBox.Width = 650
@@ -236,26 +213,21 @@ $OUPathComboBox.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10
 $OUPathComboBox.AutoCompleteMode = 'SuggestAppend'
 $OUPathComboBox.AutoCompleteSource = 'ListItems'
 
-$SelectFolderButton = New-Object system.Windows.Forms.Button
-$SelectFolderButton.Text = "Select Folder"
-$SelectFolderButton.Width = 100
-$SelectFolderButton.Height = 30
-$SelectFolderButton.Location = New-Object System.Drawing.Point(672, 25)
-$SelectFolderButton.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10)
+$CreateGroupsButton = New-Object system.Windows.Forms.Button
+$CreateGroupsButton.Text = "Create Groups"
+$CreateGroupsButton.Width = 140
+$CreateGroupsButton.Height = 30
+$CreateGroupsButton.Location = New-Object System.Drawing.Point(330, 505)
+$CreateGroupsButton.Font = New-Object System.Drawing.Font('Microsoft Sans Serif', 10, [System.Drawing.FontStyle]([System.Drawing.FontStyle]::Bold))
 
-$MainForm.controls.AddRange(@(
+$MainForm.Controls.AddRange(@(
         $FolderPathLabel,
         $OUPathLabel,
         $FolderPathTextBox,
         $CreateGroupsButton,
-        $ResultTextBox,
         $OUPathComboBox,
         $SelectFolderButton
     ))
-
-$SelectFolderButton.Add_Click( {
-        $FolderPathTextBox.Text = Get-Folder -InitialDirectory "D:\"
-    })
 
 $FolderPathTextBox.Add_Click( {
         $FolderPathTextBox.Text = Get-Folder -InitialDirectory "D:\"
@@ -265,7 +237,7 @@ $CreateGroupsButton.Add_Click( {
         Write-Log -Message $LogTitle -NoTimestamp
         Write-Log -Message $LogSeparator -NoTimestamp
         $OUPath = $OrganisationalUnits.Get_Item($OUPathComboBox.Text)
-        New-FilePermissionGroups -OUPath $OUPath -FolderPath $FolderPathTextBox.text - $ |
+        New-FilePermissionGroups -OUPath $OUPath -FolderPath $FolderPathTextBox.Text - $ |
         ForEach-Object {
             $ResultTextBox.Text = $_
         }
