@@ -9,23 +9,15 @@ folder. It names AD groups by appending folder name to the prefix `PG-RO-` for A
 the AD group that has Read-Write access. It generates log for events and error.
 
 .NOTES
-Version:        1.2
+Version:        1.3
 Author:         Zoran Jankov
 #>
 
 #---------------------------------------------------------[Initialisations]--------------------------------------------------------
 
-$FolderPermissionGroupsOU = "OU=File Server Permission Groups"
-
-$RootOU = $FolderPermissionGroupsOU + "," + (Get-ADDomain).DistinguishedName
-
-if (-not ([adsi]::Exists("LDAP://$RootOU"))) {
-    New-ADOrganizationalUnit -Name $FolderPermissionGroupsOU -Path (Get-ADDomain).DistinguishedName
-}
-
 $OrganisationalUnits = [ordered]@{}
-Get-ADOrganizationalUnit -SearchBase $RootOU -SearchScope Subtree -Filter * | ForEach-Object {
-    $OrganisationalUnits.Add($_.Name, $_.DistinguishedName)
+Get-ADOrganizationalUnit -SearchScope Subtree -Filter * | ForEach-Object {
+    $OrganisationalUnits.Add($_.DistinguishedName)
 }
 
 $LogTitle = "********************************************************  Folder Permission Groups Tool Log  *********************************************************"
